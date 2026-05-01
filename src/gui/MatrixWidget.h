@@ -69,6 +69,10 @@ public:
     int xPosOfMs(int ms);
     QList<QPair<int, int> > divs();
 
+    bool verticalMode() const;
+    int timeCoordOfMouse(int mx, int my) const;
+    int pitchCoordOfMouse(int mx, int my) const;
+
 public slots:
     void scrollXChanged(int scrollPositionX);
     void scrollYChanged(int scrollPositionY);
@@ -84,6 +88,7 @@ public slots:
     void takeKeyReleaseEvent(QKeyEvent* event);
     void setDiv(int div);
     int div();
+    void setVerticalMode(bool v);
 
 signals:
     void sizeChanged(int maxScrollTime, int maxScrollLine, int valueX,
@@ -108,6 +113,9 @@ private:
     void paintChannel(QPainter* painter, int channel);
     void paintPianoKey(QPainter* painter, int number, int x, int y,
         int width, int height);
+    void paintPianoKeyH(QPainter* painter, int number, int x, int y,
+        int w, int h);
+    double lineWidth() const;
 
     int startTick, endTick, startTimeX, endTimeX, startLineY, endLineY,
         lineNameWidth, timeHeight, msOfFirstEventInList;
@@ -116,6 +124,7 @@ private:
 
     QRectF ToolArea, PianoArea, TimeLineArea;
     bool screen_locked;
+    bool _verticalMode;
 
     // pixmap is the painted widget (without tools and cursorLines).
     // it will be zero if it needs to be repainted
